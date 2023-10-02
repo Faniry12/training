@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <data>
+    <template id="report_equipement_report_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h6>Objet : Lettre de décharge</h6>
+                        <br></br>
+                        <br></br>
+                        <p>
+                            Par la présente lettre, l'entreprise confie à <span t-field="o.employee_id"></span> le matériel <span t-field="o.materiel_id"></span>
+                            , le <span t-field="o.date_delivrance"></span>.
+                            <br></br>
+                            <br></br>
+                            Ce matériel demeure la propriété de l'entreprise.
+                            <br></br>
+                            <br></br>
+                            Il est convenu que <span t-field="o.employee_id"></span> ne pourra utiliser ce matériel à d'autres fins que des dins professionnelles, sans 
+                            autorisation expresse et préalable de l'entreprise.
+                            <br></br>
+                            <br></br>
+                            <span t-field="o.employee_id"></span> s'engage à restituer l'intégralité du matériel ainsi à la date convenu pour le rendre.
+                            <br></br>
+                            <br></br>
+                            Il est présicé qu'en cas de détérioration ou de perte du matériel ainsi prêté,à la suite d'une faute lurde de <span t-field="o.employee_id"></span>
+                            , ce dernier poura être tenu de rembourser à l'entreprise de ce matériel qui s'élève à <span t-field="o.valeur_materielle"></span>Ar.
+                            <br></br>
+                            <br></br>
+                            <br></br>
+                            <center>
+                                Faite à Antananarivo le <span t-field="o.date_delivrance"></span>
+                            </center>
+                            <br></br>
+                            <br></br>
+                            <br></br>
+                            <pre>
+                                Signature
+                            </pre>
+                        </p>                     
+                           
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_equipement_report_template12">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h6>Objet : attestation de restitution d'un matériel prêté par l'entreprise.</h6>
+                        <br></br>
+                        <br></br>
+                        <p>
+                            Je soussigné, <span t-field="o.attribue_par"></span>, de l'entreprise atteste que Madame <span t-field="o.employee_id"></span>
+                            a bien restitué le matériel <span t-field="o.materiel_id"></span>.
+                            <br></br>
+                            <br></br>
+                            Par la présene, la société atteste avoir récupéré l'intégralité du matériel à la disposition du salarié.
+                            <center>
+                                Faite à Antananarivo le <span t-field="o.date_delivrance"></span>
+                            </center>
+                            <br></br>
+                            <br></br>
+                            <br></br>
+                            <pre>
+                                Signature
+                            </pre>
+                        </p>                     
+                           
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_equipement_report_template" model="ir.actions.report">
+        <field name="name">Rapport pdf du lettre de décharge</field>
+        <field name="model">product.attribution</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">gestion_equipements.report_equipement_report_template</field>
+        <!-- <field name="report_file">gestion_equipements.report_equipement_report_template</field>
+        <field name="print_report_name">employee-card</field> -->
+        <field name="binding_model_id" ref="model_product_attribution"/>
+        <!-- <field name="binding_type">report</field> -->
+    </record>
+
+    <record id="action_report_equipement_report_template12" model="ir.actions.report">
+        <field name="name">Rapport pdf du attestation de restitution</field>
+        <field name="model">product.attribution</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">gestion_equipements.report_equipement_report_template12</field>
+        <!-- <field name="report_file">gestion_equipements.report_equipement_report_template</field>
+        <field name="print_report_name">employee-card</field> -->
+        <field name="binding_model_id" ref="model_product_attribution"/>
+        <!-- <field name="binding_type">report</field> -->
+    </record>
+
+    </data>
+</odoo>

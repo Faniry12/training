@@ -1,0 +1,109 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="equipement_list_view">
+      <field name="name">Equipement</field>
+      <field name="model">product.attribution</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="reference"/>
+          <field name="employee_id"/>
+          <field name="materiel_id"/>
+          <field name="attribue_par" optional = "hide"/>
+          <field name="categorie_materiel_id" optional = "hide"/>
+          <field name="date_delivrance"/>
+          <field name="valeur_materielle"/>
+        </tree>
+      </field>
+    </record>
+
+    <!-- explicit list form definition -->
+
+    <record model="ir.ui.view" id="equipement_form_view">
+      <field name="name">Equipement</field>
+      <field name="model">product.attribution</field>
+      <field name="arch" type="xml">
+        <form>
+          <header>
+            <button name="attribuer" type="object" class="oe_highlight" string = "ATTRIBUER" attrs="{'invisible':[('state', '!=', 'nouveau')]}"></button>
+            <button name="retourner" type="object" class="oe_highlight" string = "RETOURNER" attrs="{'invisible':[('state', '!=', 'attribue')]}"></button>
+            <button name="annuler" type="object" class="oe_highlight" string = "Annuler" attrs="{'invisible':[('state', '!=', 'attribue')]}"></button>
+            <field name="state" widget="statusbar" nolabel="1" states=""/>
+          </header>
+          <sheet>
+          <group>
+              <group>
+                <field name="reference"/>
+                <field name="employee_id" required = "True"/>
+                <field name="materiel_id" required = "True"/>
+                <field name="valeur_materielle" required = "True"/>
+              </group>
+              <group>
+                <field name="date_delivrance"/>
+                <field name="attribue_par"/>
+                <field name="categorie_materiel_id"/>
+              </group>
+          </group>
+          </sheet>
+            <div class="oe_chatter">
+              <field name="message_follower_ids" widget="mail_followers"></field>
+              <field name="message_ids" widget="mail_thread"></field>
+            </div>
+        </form>
+      </field>
+    </record>
+
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="product_window">
+      <field name="name">Equipement</field>
+      <field name="res_model">product.attribution</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="product_template_window">
+      <field name="name">materiel</field>
+      <field name="res_model">product.template</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="gestion_equipements.action_server">
+      <field name="name">gestion_equipements server</field>
+      <field name="model_id" ref="model_gestion_equipements_gestion_equipements"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+
+    <menuitem name="KS_equipements" id="gestion_equipements.menu_root"/>
+
+    <!-- menu categories -->
+    <menuitem name="Attribution" id="attribution_categorie" parent="gestion_equipements.menu_root"/>
+    <menuitem name="Materiel" id="materiel_categorie" parent="gestion_equipements.menu_root"/>
+
+    <!-- actions -->
+
+    <menuitem name="Liste_Attributions" id="attribution_list" parent="attribution_categorie"
+              action="product_window"/>
+
+    <menuitem name="Liste des matériel" id="materiels_list" parent="materiel_categorie"
+              action="product_template_window"/>
+    
+
+  </data>
+</odoo>
